@@ -2,99 +2,76 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="个人游戏实验室：独立游戏原型、实验作品与浏览器试玩。">
-  <title>游戏实验室 · Play Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="森火通明游戏原型">
+  <title>森火通明 · 游戏原型</title>
   <style>
-    * { box-sizing: border-box; }
-    :root { color-scheme: dark; font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; background: #0b1020; color: #edf2ff; }
-    body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at 50% -15%, #263b62 0, #111a30 42%, #0b1020 78%); }
-    a { color: inherit; text-decoration: none; }
-    .shell { width: min(1120px, 100%); margin: 0 auto; padding: 34px 24px 56px; }
-    .topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 72px; }
-    .brand { display: flex; align-items: center; gap: 11px; font-weight: 750; letter-spacing: .04em; }
-    .brand-mark { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid #526c98; border-radius: 11px; background: linear-gradient(145deg, #29466e, #17243b); color: #b8d4ff; }
-    .top-note { color: #8ea2c2; font-size: 12px; letter-spacing: .12em; }
-    .hero { max-width: 720px; margin-bottom: 46px; }
-    .eyebrow { margin: 0 0 14px; color: #8db9ff; font-size: 11px; font-weight: 700; letter-spacing: .22em; }
-    h1 { margin: 0; font-size: clamp(38px, 7vw, 68px); line-height: 1.08; letter-spacing: -.055em; }
-    .intro { max-width: 560px; margin: 20px 0 0; color: #a8b7d1; font-size: 15px; line-height: 1.9; }
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
-    h2 { margin: 0; font-size: 18px; letter-spacing: .02em; }
-    .section-note { color: #778ba9; font-size: 12px; }
-    .games { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .game-card { overflow: hidden; border: 1px solid #2c3d5a; border-radius: 18px; background: linear-gradient(145deg, #17243a, #111b2d); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
-    .game-card:hover { transform: translateY(-4px); border-color: #6688bc; box-shadow: 0 18px 45px #0005; }
-    .art { position: relative; display: grid; place-items: center; min-height: 210px; overflow: hidden; background: radial-gradient(ellipse at 50% 85%, #315e62 0, #1b3947 34%, #15243b 72%); }
-    .art:before, .art:after { position: absolute; content: ""; border-radius: 50%; filter: blur(1px); }
-    .art:before { width: 210px; height: 210px; right: -38px; top: -86px; background: #9ed7bd12; }
-    .art:after { width: 160px; height: 160px; left: -50px; bottom: -95px; background: #8db9ff18; }
-    .sigil { position: relative; z-index: 1; display: grid; place-items: center; width: 92px; height: 92px; border: 1px solid #b1e5ce70; border-radius: 28px; background: linear-gradient(145deg, #a5e7c52b, #183d3b88); color: #c6f4d9; font-size: 42px; box-shadow: 0 0 55px #9de6c326; }
-    .art-label { position: absolute; left: 20px; bottom: 17px; z-index: 1; color: #b6d5d0; font-size: 10px; letter-spacing: .2em; }
-    .card-body { padding: 20px 21px 22px; }
-    .card-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    h3 { margin: 0; font-size: 20px; }
-    .status { flex: none; padding: 5px 9px; border: 1px solid #397b68; border-radius: 999px; background: #17382f; color: #a8f0d2; font-size: 11px; }
-    .description { min-height: 44px; margin: 11px 0 17px; color: #96a9c5; font-size: 13px; line-height: 1.7; }
-    .play { display: inline-flex; align-items: center; gap: 8px; color: #c6dcff; font-size: 13px; font-weight: 650; }
-    .play span { transition: transform .2s ease; }
-    .game-card:hover .play span { transform: translateX(4px); }
-    .empty-card { display: flex; flex-direction: column; justify-content: center; min-height: 330px; padding: 28px; border: 1px dashed #34435e; border-radius: 18px; background: #111a2a80; color: #8395b0; }
-    .empty-icon { margin-bottom: 14px; color: #8ca5c9; font-size: 28px; }
-    .empty-card strong { color: #c0cde0; font-size: 15px; }
-    .empty-card p { max-width: 270px; margin: 9px 0 0; font-size: 13px; line-height: 1.8; }
-    footer { display: flex; justify-content: space-between; gap: 16px; margin-top: 64px; padding-top: 20px; border-top: 1px solid #24324a; color: #71839f; font-size: 11px; }
-    @media (max-width: 680px) {
-      .shell { padding: 22px 16px 38px; }
-      .topline { padding-bottom: 54px; }
-      .top-note { display: none; }
-      .games { grid-template-columns: 1fr; }
-      .art { min-height: 185px; }
-      .empty-card { min-height: 190px; }
-      footer { flex-direction: column; margin-top: 42px; }
-    }
+* { box-sizing: border-box; }
+:root { color-scheme: dark; font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif; background: #0b1220; color: #e5edf8; }
+body { margin: 0; min-height: 100vh; background: radial-gradient(ellipse at top, #1c2b43 0, #0b1220 65%); }
+button { font: inherit; }
+.app { width: min(1100px, 100%); margin: 0 auto; padding: 28px 22px 36px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; }
+.eyebrow { margin: 0 0 6px; color: #83b6ff; font-size: 11px; letter-spacing: .18em; }
+.release-tag { display: inline-block; margin-top: 9px; padding: 4px 9px; border: 1px solid #397b68; border-radius: 999px; color: #a8f0d2; background: #17382f; font-size: 11px; letter-spacing: .04em; }
+h1 { margin: 0; font-size: clamp(21px, 4vw, 30px); }
+.restart-button, .touch-controls button { border: 1px solid #47617f; border-radius: 10px; color: #eaf3ff; background: #1b2b42; cursor: pointer; }
+.restart-button { padding: 10px 16px; }
+.restart-button:hover, .touch-controls button:active { background: #29486c; }
+.game-panel { overflow: hidden; border: 1px solid #30445f; border-radius: 16px; background: #101b2b; box-shadow: 0 18px 55px #0005; }
+.hud { display: flex; justify-content: space-between; padding: 13px 17px; color: #9fb2cb; font-size: 13px; }
+.hud strong { color: #f1f6ff; margin-left: 6px; }
+canvas { display: block; width: 100%; height: auto; background: #101c2b; touch-action: none; }
+footer { padding: 14px 3px; color: #a9bad0; font-size: 13px; }
+footer p { margin: 4px 0; }
+.hint { color: #71869f; }
+.touch-controls { display: none; padding: 12px; justify-content: space-between; align-items: center; }
+.touch-controls button { width: 54px; height: 46px; font-size: 18px; }
+.horizontal-controls { display: flex; gap: 8px; }
+@media (pointer: coarse), (max-width: 700px) {
+  .app { padding: 16px 12px 24px; }
+  .touch-controls { display: flex; }
+  .topbar { align-items: flex-start; }
+}
+
   </style>
 </head>
 <body>
-  <main class="shell">
-    <nav class="topline" aria-label="主导航">
-      <a class="brand" href="./" aria-label="游戏实验室首页"><span class="brand-mark">✦</span><span>PLAY LAB</span></a>
-      <span class="top-note">INDEPENDENT GAME WORKSHOP</span>
-    </nav>
-
-    <header class="hero">
-      <p class="eyebrow">PERSONAL GAME COLLECTION</p>
-      <h1>游戏实验室<span style="color:#8db9ff">.</span></h1>
-      <p class="intro">这里收录正在制作、测试和探索中的游戏原型。选择一个作品，即可在浏览器中直接体验。</p>
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">GAME PROTOTYPE</p>
+        <span class="release-tag" data-testid="release-tag">自动发布验证版</span>
+        <h1>森火通明 · 原型测试场</h1>
+      </div>
+      <button id="restartButton" class="restart-button" type="button">重新开始</button>
     </header>
 
-    <section aria-labelledby="games-title">
-      <div class="section-head">
-        <h2 id="games-title">游戏作品</h2>
-        <span class="section-note">GAMES / PROTOTYPES</span>
+    <section class="game-panel" aria-label="游戏区域">
+      <div class="hud">
+        <span>生存时间 <strong id="timeValue">0.0s</strong></span>
+        <span>状态 <strong id="statusValue">准备中</strong></span>
       </div>
-      <div class="games">
-        <a class="game-card" href="./games/senhuotongming/" aria-label="试玩森火通明">
-          <div class="art">
-            <div class="sigil" aria-hidden="true">✧</div>
-            <span class="art-label">GAME 001 · PROTOTYPE</span>
-          </div>
-          <div class="card-body">
-            <div class="card-title-row"><h3>森火通明</h3><span class="status">可试玩</span></div>
-            <p class="description">一个持续迭代中的浏览器游戏原型。进入游戏，体验当前版本。</p>
-            <span class="play">进入游戏 <span>→</span></span>
-          </div>
-        </a>
-        <div class="empty-card">
-          <span class="empty-icon" aria-hidden="true">＋</span>
-          <strong>下一个作品，正在构思中</strong>
-          <p>新游戏会以独立入口加入这里，不影响已有作品的试玩地址。</p>
+      <canvas id="gameCanvas" width="960" height="540" aria-label="游戏画布"></canvas>
+      <div class="touch-controls" aria-label="触屏方向控制">
+        <button data-control="up" aria-label="向上">▲</button>
+        <div class="horizontal-controls">
+          <button data-control="left" aria-label="向左">◀</button>
+          <button data-control="down" aria-label="向下">▼</button>
+          <button data-control="right" aria-label="向右">▶</button>
         </div>
       </div>
     </section>
 
-    <footer><span>PLAY LAB · PERSONAL GAME WORKSHOP</span><span>持续制作，持续试玩。</span></footer>
+    <footer>
+      <p>移动：WASD / 方向键 / 触屏按钮</p>
+      <p class="hint">当前为通用技术验证原型，具体玩法等待游戏设计确定。</p>
+    </footer>
   </main>
+  <script>
+(()=>{function g(t,n){let e={x:t,y:n};return{update(r,o,s,u){let i=Number(r.isDown("right"))-Number(r.isDown("left")),a=Number(r.isDown("down"))-Number(r.isDown("up")),h=Math.hypot(i,a)||1;e.x+=i/h*260*o,e.y+=a/h*260*o,e.x=Math.max(18,Math.min(s-18,e.x)),e.y=Math.max(18,Math.min(u-18,e.y))},draw(r){r.fillStyle="#79d6b0",r.shadowColor="#79d6b0",r.shadowBlur=18,r.beginPath(),r.arc(e.x,e.y,18,0,Math.PI*2),r.fill(),r.shadowBlur=0,r.strokeStyle="#d7fff0",r.lineWidth=3,r.beginPath(),r.arc(e.x,e.y,23,0,Math.PI*2),r.stroke()},reset(r,o){e={x:r,y:o}}}}function c(t,n,e){return Array.from({length:t},(r,o)=>{let s=Math.PI*2*o/t,u=90+o%3*48,i=n/2+Math.cos(s)*u,a=e/2+Math.sin(s)*u,h=24+o%4*9;return{update(d,f,m){i+=Math.cos(s+Math.PI/2)*h*d,a+=Math.sin(s+Math.PI/2)*h*d,(i<16||i>f-16)&&(i=Math.max(16,Math.min(f-16,i))),(a<16||a>m-16)&&(a=Math.max(16,Math.min(m-16,a)))},draw(d){d.fillStyle="#f2a66f",d.beginPath(),d.arc(i,a,10,0,Math.PI*2),d.fill()}}})}function y(t){return{level:t,enemyCount:Math.max(3,Math.min(8,3+t-1))}}var E={ArrowUp:"up",w:"up",W:"up",ArrowDown:"down",s:"down",S:"down",ArrowLeft:"left",a:"left",A:"left",ArrowRight:"right",d:"right",D:"right"};function M(t){let n=new Set;return t.addEventListener("keydown",e=>{let r=E[e.key];r&&(e.preventDefault(),n.add(r))}),t.addEventListener("keyup",e=>{let r=E[e.key];r&&n.delete(r)}),t.addEventListener("blur",()=>n.clear()),{isDown(e){return n.has(e)},set(e,r){r?n.add(e):n.delete(e)}}}function S(t,n={}){let e=t.getContext("2d"),r=M(window),o=g(t.width/2,t.height/2),s=y(1),u=c(s.enemyCount,t.width,t.height),i=!1,a=0,h=0,d=0;function f(){e.clearRect(0,0,t.width,t.height),e.strokeStyle="#1d3045",e.lineWidth=1;for(let l=0;l<t.width;l+=48)e.beginPath(),e.moveTo(l,0),e.lineTo(l,t.height),e.stroke();for(let l=0;l<t.height;l+=48)e.beginPath(),e.moveTo(0,l),e.lineTo(t.width,l),e.stroke();for(let l of u)l.draw(e);o.draw(e),e.fillStyle="#8fa8c4",e.font="14px sans-serif",e.fillText("\u57FA\u7840\u79FB\u52A8\u4E0E\u5BF9\u8C61\u6E32\u67D3\u6D4B\u8BD5",18,t.height-18)}function m(l){if(!i)return;let w=Math.min((l-a)/1e3||0,.033);a=l,h+=w,d+=1,o.update(r,w,t.width,t.height),u.forEach(P=>P.update(w,t.width,t.height)),f(),n.onUpdate?.({elapsed:h,status:"running",frame:d}),requestAnimationFrame(m)}return{input:r,start(){i||(i=!0,a=performance.now(),requestAnimationFrame(m))},restart(){h=0,d=0,o.reset(t.width/2,t.height/2),u=c(s.enemyCount,t.width,t.height),f(),n.onUpdate?.({elapsed:h,status:"running",frame:d}),i=!0,a=performance.now()}}}var I=document.querySelector("#gameCanvas"),D=document.querySelector("#timeValue"),L=document.querySelector("#statusValue"),x=document.querySelector("#restartButton"),p=S(I,{onUpdate({elapsed:t,status:n}){D.textContent=`${t.toFixed(1)}s`,L.textContent=n==="running"?"\u8FDB\u884C\u4E2D":n==="paused"?"\u5DF2\u6682\u505C":"\u51C6\u5907\u4E2D"}});x.addEventListener("click",()=>p.restart());document.querySelectorAll("[data-control]").forEach(t=>{let n=t.dataset.control,e=o=>{o.preventDefault(),p.input.set(n,!0)},r=o=>{o.preventDefault(),p.input.set(n,!1)};t.addEventListener("pointerdown",e),t.addEventListener("pointerup",r),t.addEventListener("pointerleave",r),t.addEventListener("pointercancel",r)});p.start();})();
+
+  </script>
 </body>
 </html>
