@@ -7,3 +7,4 @@
 | 游戏 | 单独试玩网址 |
 |---|---|
 | 森火通明 | [直接试玩](https://yunduancheng47-web.github.io/senhuotongming-game-site/games/senhuotongming/) |
+| 贪吃蛇 | [直接试玩](https://yunduancheng47-web.github.io/senhuotongming-game-site/games/snake/) |
